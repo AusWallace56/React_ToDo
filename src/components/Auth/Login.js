@@ -3,6 +3,7 @@ import React from 'react'
 import { useAuth } from '../../Contexts/AuthContext'
 import { Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import './Auth.css'
 
 export default function Login() {
   const {login} = useAuth();
@@ -16,7 +17,7 @@ export default function Login() {
 
   return (
     <div className='login'>
-        <article className='bg-info mb-5 p-5 text-dark'>
+        <article className='mb-5 p-5'>
           <h1 className='text-center'>Welcome to I Do To Dos</h1>
         </article>
         <Container>

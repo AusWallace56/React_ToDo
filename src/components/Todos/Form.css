@@ -1,0 +1,10 @@
+.formHeader{
+    background-color: #2a2a2a;
+    color: whitesmoke;
+    font-family: 'Dancing Script';
+}
+
+.formBody {
+    font-family: 'Dancing Script';
+    background-image: url(../../images/WeddingBackground.jpg)
+}

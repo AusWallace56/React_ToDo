@@ -6,7 +6,7 @@ import axios from 'axios'
 export default function ToDoForm(props) {
     const [categories, setCategories] = useState([]);
     const getCategories = () => {
-        axios.get('http://localhost:59270/api/categories/').then(response => {setCategories(response.data)})
+        axios.get('http://todoapi.austinwallace.net/api/categories/').then(response => {setCategories(response.data)})
     }
     const handleSubmit = (values) => {
         console.log(values)
@@ -18,13 +18,22 @@ export default function ToDoForm(props) {
                 Done: false,
                 CategoryId: values.CategoryId
             }
-            axios.post('http://localhost:59270/api/ToDo', toDoToCreate).then(() => {
+            axios.post('http://todoapi.austinwallace.net/api/ToDo', toDoToCreate).then(() => {
                 props.getToDos();
                 props.setShowCreate(false);
             })
         }
         else{
-            console.log('edit mode')
+            // console.log('edit mode')
+            const toDoToEdit ={
+                ToDoId: props.todos.ToDoId,
+                Action: values.Action,
+                CategoryId: values.CategoryId
+            }
+            axios.put('http://todoapi.austinwallace.net/api/ToDo', toDoToEdit).then(() => {
+                props.getToDos();
+                props.setShowEdit(false);
+            })
         }
     }
 

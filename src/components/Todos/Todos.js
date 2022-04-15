@@ -4,6 +4,8 @@ import axios from 'axios'
 import SingleToDo from './SingleToDo';
 import {useAuth} from '../../Contexts/AuthContext'
 import ToDoCreate from './ToDoCreate';
+import './ToDo.css'
+import FilterCat from './FilterCat';
 
 export default function Todos() {
 
@@ -12,9 +14,10 @@ export default function Todos() {
   const {currentUser} = useAuth()
   const [showCreate, setShowCreate] = useState(false);
   
+  const [filter, setFilter] = useState(0);
 
   const getToDos = () => {
-    axios.get('http://localhost:59270/api/ToDo').then(response => {
+    axios.get('http://todoapi.austinwallace.net/api/ToDo').then(response => {
       setTodos(response.data)
     })
   }
@@ -28,8 +31,8 @@ export default function Todos() {
         <h1>To Dos</h1>
       </article>
       {currentUser.email === process.env.REACT_APP_EMAIL_ADMIN && 
-      <div className='bg-dark p-2 mb-3 text-center'>
-        <button className='btn btn-info' onClick={() => setShowCreate(!showCreate)}>
+      <div className='p-2 mb-3 text-center'>
+        <button className='btn' onClick={() => setShowCreate(!showCreate)}>
           {!showCreate ? "Create To Do" : "Close Form"}
         </button>
         {showCreate &&
@@ -42,15 +45,31 @@ export default function Todos() {
         }
       </div>
       }
+      <FilterCat
+        setFilter={setFilter}
+      />
       <Container>
-        <article className='todoGallery row justify-content-center'>
-          {todos.map(x => 
+          {filter === 0 ?
+          todos.map(x => 
            <SingleToDo
            key={x.ToDoId}
            todos={x}
+           getToDos={getToDos}
            />
-           )}
-        </article>
+           ) :
+           todos.filter(x => x.CategoryId === filter).map(x => 
+            <SingleToDo
+            key={x.ToDoId}
+            todos={x}
+            getToDos={getToDos}
+            />
+            )
+          }
+          {filter !== 0 && todos.filter(x => x.CategoryId === filter).length === 0 && 
+            <h2>
+              Sorry, but there are no results for this category.
+            </h2>
+          }
       </Container>
     </section>
   )

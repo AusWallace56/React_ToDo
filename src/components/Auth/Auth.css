@@ -9,3 +9,9 @@ span.profile img {
     margin: 0 10px;
     border: 1px solid white;
 }
+
+h1 {
+    outline-color: whitesmoke;
+    outline-style: ridge;
+    -webkit-text-stroke: .1px whitesmoke;
+}

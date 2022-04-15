@@ -14,13 +14,22 @@ export default function CatForm(props) {
         Name: values.Name,
         Description: values.Description
       }
-      axios.post('http://localhost:59270/api/categories/', catToCreate).then(() => {
+      axios.post('http://todoapi.austinwallace.net/api/categories/', catToCreate).then(() => {
         props.setShowCreate(false)
         props.getCategories()
       })
     }
     else{
-      console.log('edit mode')
+      // console.log('edit mode')
+      const catToEdit = {
+        CategoryId: props.category.CategoryId,
+        Name: values.Name,
+        Description: values.Description
+      }
+      axios.put('http://todoapi.austinwallace.net/api/categories/', catToEdit).then(() => {
+        props.getCategories();
+        props.setShowEdit(false);
+      })
     }
   }
   return (

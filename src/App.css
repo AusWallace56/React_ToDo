@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#root{
+  font-family: 'Dancing Script';
+  background-image: url(./images/WeddingBackground.jpg)
 }
